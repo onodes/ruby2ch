@@ -13,7 +13,9 @@ module Ruby2ch
       @no = @name.map{|n| n[0]}
       @hn = @name.map{|n| n[1]}
       name_split = @name.map{|n| n[2].split(" ")} 
-      @ids = name_split.map{|n| n[2]}.uniq.map{|id| id.sub("ID:","")}
+      @ids = name_split.map{|n| n[2]}.uniq.map{|id| 
+        puts id
+        id.sub("ID:","")}
       @date1 = name_split.map{|n| n[0]}.map{|n| n.sub(/\(.\)/,"")}
       @time = name_split.map{|n| n[1]}
       @date = @date1[0] + " " + @time[0]

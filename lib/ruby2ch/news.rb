@@ -2,7 +2,7 @@
 #encoding: utf-8
 require "mechanize"
 require "time"
-require "./thre"
+require "ruby2ch/thre"
 #hogehoge
 #hugahuga
 agent = Mechanize.new

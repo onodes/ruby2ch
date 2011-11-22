@@ -1,7 +1,7 @@
 #encoding: utf-8
 require 'mechanize'
 
-module Ruby2ch
+module Ruby2ch 
   class Thre
     def initialize(url)
       @agent = Mechanize.new
@@ -13,7 +13,7 @@ module Ruby2ch
       @no = @name.map{|n| n[0]}
       @hn = @name.map{|n| n[1]}
       name_split = @name.map{|n| n[2].split(" ")} 
-      @id = name_split.map{|n| n[2]}
+      @ids = name_split.map{|n| n[2]}.uniq.map{|id| id.sub("ID:","")}
       @date1 = name_split.map{|n| n[0]}.map{|n| n.sub(/\(.\)/,"")}
       @time = name_split.map{|n| n[1]}
       @date = @date1[0] + " " + @time[0]
@@ -23,7 +23,7 @@ module Ruby2ch
       return @res.size/(Time.now - Time.parse(@date)) * 60 * 60 * 24
     end
 
-    attr_accessor :title, :date
+    attr_accessor :title, :date, :ids
   end
 end
 =begin

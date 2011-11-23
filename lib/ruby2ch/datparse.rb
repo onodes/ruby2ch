@@ -11,11 +11,21 @@ module Ruby2ch
       @agent = Mechanize.new
       @page = @agent.get(@dat_url).body.toutf8
       
+      @page = @page.split("\n").map{|res| dat_parse(res).flatten}.delete_if{|res| res == []}
+      @page.map{|res| 
+        res[4] = res[4].gsub("<>","").gsub("<br>","\n")
+      } 
     end
 
     def to_a
-      @array = @page.split("<br>")
+      @array = @page.split("\n")
     end
+
+    def dat_parse(res)
+        res_array = res.scan(/(^\S+)\<\/b\>(\(.*\))\<b\>\<\>\S*\<\>(.+)\sID:(\S+)<>(.*)/) 
+    end
+
+
 
         attr_accessor :dat_url,:page
   end
@@ -24,8 +34,8 @@ end
 
 
 
-d = Ruby2ch::Dat.new("http://uni.2ch.net/test/read.cgi/news/1322032301/")
-p d.page
-
+d = Ruby2ch::Dat.new("http://uni.2ch.net/test/read.cgi/news/1322072362/")
+p d.dat_url
+#p d.page
 #parse
 #(^\S+)\<\/b\>(\(.+\))\<b\>\<\>\S+\<\>(.+)\sID:(\S+)<>(.*)

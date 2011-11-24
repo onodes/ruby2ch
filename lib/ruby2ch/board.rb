@@ -1,6 +1,7 @@
 require 'mechanize'
 require 'ruby2ch/thre'
 require 'thread'
+require 'ruby2ch/datparse'
 include Ruby2ch
 
 module Ruby2ch
@@ -16,10 +17,10 @@ module Ruby2ch
     def threads
       threads = []
       @links.each{|link|
-        threads << Thread.start(link){|link| Thre.new(link)}
+        threads << Thread.start(link){|link| Dat.new(link)}
       }
 
-      threads.map{|thre|
+      threads.map!{|thre|
         thre.join.value
       }
 

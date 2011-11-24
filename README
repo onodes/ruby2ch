@@ -1,0 +1,17 @@
+ruby2chはRubyで2chを解析するライブラリ群です．
+VersionはRuby1.9.2で動作検証済みです．
+
+使い方
+require 'ruby2ch'
+
+クラス一覧
+Thre:スレッドの情報を手に入れる
+Board:板内のスレッド一覧を手に入れる
+Dat:Datファイルをパースする
+
+
+t = Thre.new("スレのURL")
+t.title
+t.impetus
+t.ids
+

@@ -9,16 +9,19 @@ module Ruby2ch
     def initialize(url)
       @agent = Mechanize.new
       @page = @agent.get(url)
-      @links = @page.links.map{|link| link.href}.map{|link| link.split("/")[0]}
-      @links.map!{|link| url.sub("/news/subback.html","/test/read.cgi/news/") + link}
-      @links.select!{|x| /\/\d*$/ =~x}
+      @links = @page.links.map{|link| [link.href,link.text]}#.map{|link| link.split("/")[0]}
+
+      @links.map!{|link,title|  [link.split("/"),title]}
+
+      @links.map!{|link,title| url.sub("/news/subback.html","/test/read.cgi/news/") + link}
+      @links.select!{|link,title| /\/\d*$/ =~link}
     end
     
     def threads(num)
       threads = []
       thread_num = 100
       num.times{|i|
-        threads << Thread.start(i){|i| Dat.new(@links[i])}
+        threads << Thread.start(i){|i| Dat.new(@links[i][0])}
       }
 
       threads.map!{|thre|

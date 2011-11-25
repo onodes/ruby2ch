@@ -1,7 +1,6 @@
 #encoding: utf-8
 require 'mechanize'
 require 'kconv'
-require 'Time'
 module Ruby2ch
   class Dat
     def initialize(url,title)

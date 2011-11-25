@@ -15,7 +15,6 @@ module Ruby2ch
       @links.map!{|link,title|  [link.split("/")[0],title]}
 
       @links.map!{|link,title| 
-        puts link
         [url.sub("/news/subback.html","/test/read.cgi/news/") + link,title]}
       
       @links.select!{|link,title| /\/\d*$/ =~link}

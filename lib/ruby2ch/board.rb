@@ -14,10 +14,11 @@ module Ruby2ch
       @links.select!{|x| /\/\d*$/ =~x}
     end
     
-    def threads
+    def threads(num)
       threads = []
-      @links.each{|link|
-        threads << Thread.start(link){|link| Dat.new(link)}
+      thread_num = 100
+      num.times{|i|
+        threads << Thread.start(i){|i| Dat.new(@links[i])}
       }
 
       threads.map!{|thre|

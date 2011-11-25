@@ -38,7 +38,7 @@ module Ruby2ch
 
 
 
-    attr_accessor :dat_url,:page
+    attr_accessor :dat_url,:page,:thre
   end
 
 end

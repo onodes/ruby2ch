@@ -8,6 +8,7 @@ module Ruby2ch
   class Board
     def initialize(url)
       @agent = Mechanize.new
+      url = url + "subback.html"
       @page = @agent.get(url)
       @links = @page.links.map{|link| [link.href,link.text]}#.map{|link| link.split("/")[0]}
 

@@ -1,6 +1,7 @@
 #encoding: utf-8
 require 'mechanize'
 require 'kconv'
+require 'Time'
 module Ruby2ch
   class Dat
     def initialize(url,title)
@@ -35,6 +36,14 @@ module Ruby2ch
 
     def dat_parse(res)
       res_array = res.scan(/(^\S+)\<\/b\>(\(.*\))\<b\>\<\>\S*\<\>(.+)\sID:(\S+)\s*(BE.*)*\<\>\s(\<a.*\<\/a\>)*(.*)/)
+    end
+
+    def create_thread
+      return @thre[0][:date]
+    end
+
+    def impetus
+      return @thre.size/(Time.now - Time.parse(create_thread )) * 60 * 60 * 24
     end
 
 

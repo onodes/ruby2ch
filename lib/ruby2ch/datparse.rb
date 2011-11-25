@@ -3,9 +3,10 @@ require 'mechanize'
 require 'kconv'
 module Ruby2ch
   class Dat
-    def initialize(url)
+    def initialize(url,title)
       #http://uni.2ch.net/test/read.cgi/news/1322032301/l50
       #http://bg20.2ch.net/test/r.so/uni.2ch.net/news/1322032301/
+      @title = title.scan(/\d*\s(.*)\s\(\d*\)/).flatten[0]
       url_elements = url.split("/")
       @dat_url = "http://bg20.2ch.net/test/r.so/" + url_elements[2] + "/" + url_elements[5] + "/" + url_elements[6] + "/"
       @agent = Mechanize.new
@@ -38,7 +39,7 @@ module Ruby2ch
 
 
 
-    attr_accessor :dat_url,:page,:thre
+    attr_accessor :dat_url,:page,:thre,:title
   end
 
 end

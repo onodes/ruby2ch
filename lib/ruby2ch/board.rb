@@ -11,9 +11,12 @@ module Ruby2ch
       @page = @agent.get(url)
       @links = @page.links.map{|link| [link.href,link.text]}#.map{|link| link.split("/")[0]}
 
-      @links.map!{|link,title|  [link.split("/"),title]}
+      @links.map!{|link,title|  [link.split("/")[0],title]}
 
-      @links.map!{|link,title| url.sub("/news/subback.html","/test/read.cgi/news/") + link}
+      @links.map!{|link,title| 
+        puts link
+        [url.sub("/news/subback.html","/test/read.cgi/news/") + link,title]}
+      
       @links.select!{|link,title| /\/\d*$/ =~link}
     end
     
@@ -21,7 +24,7 @@ module Ruby2ch
       threads = []
       thread_num = 100
       num.times{|i|
-        threads << Thread.start(i){|i| Dat.new(@links[i][0])}
+        threads << Thread.start(i){|i| Dat.new(@links[i][0],@links[i][1])}
       }
 
       threads.map!{|thre|
